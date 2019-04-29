@@ -3,12 +3,7 @@ package com.github.douglasmiguel7.queue.domain;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity(name = "COMPANY")
@@ -30,6 +25,14 @@ public class Company {
     @Column(name = "CLOSES_AT", nullable = false)
     @Temporal(TemporalType.TIME)
     private Date closesAt;
+
+    public Company() {
+
+    }
+
+    public Company(String name) {
+        this.name = name;
+    }
 
     public Long getId() {
         return id;
