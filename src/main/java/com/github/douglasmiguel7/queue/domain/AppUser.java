@@ -29,8 +29,8 @@ public class AppUser {
     @Column(name = "PASSWORD", nullable = false)
     private String password;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "COMPANY_ID", referencedColumnName = "ID", nullable = false, foreignKey = @ForeignKey(name = "APP_USER_COMPANY_FK"))
+    @ManyToOne
+    @JoinColumn(name = "COMPANY_ID", referencedColumnName = "ID", foreignKey = @ForeignKey(name = "APP_USER_COMPANY_FK"))
     private Company company;
 
     public Long getId() {
