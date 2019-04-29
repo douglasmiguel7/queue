@@ -1,2 +1,2 @@
 # queue
-Projeto focado em organizar e melhorar esperas para prestadores de serviço
+Projeto focado em aprimorar agendamentos em estabelecimentos
