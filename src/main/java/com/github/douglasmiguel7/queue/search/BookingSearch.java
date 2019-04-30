@@ -5,13 +5,13 @@ import com.github.douglasmiguel7.queue.domain.Booking;
 import com.github.douglasmiguel7.queue.hardcode.AppUserRole;
 import com.github.douglasmiguel7.queue.repository.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-@Service
+@Component
 public class BookingSearch {
 
     private final BookingRepository bookingRepository;

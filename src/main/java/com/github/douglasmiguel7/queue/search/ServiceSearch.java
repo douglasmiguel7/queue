@@ -1,16 +1,17 @@
 package com.github.douglasmiguel7.queue.search;
 
 import com.github.douglasmiguel7.queue.domain.AppUser;
+import com.github.douglasmiguel7.queue.domain.Service;
 import com.github.douglasmiguel7.queue.hardcode.AppUserRole;
 import com.github.douglasmiguel7.queue.repository.ServiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-@Service
+@Component
 public class ServiceSearch {
 
     private final ServiceRepository serviceRepository;
@@ -20,7 +21,7 @@ public class ServiceSearch {
         this.serviceRepository = serviceRepository;
     }
 
-    public List<com.github.douglasmiguel7.queue.domain.Service> searchAvailables(AppUser appUser, Date bookingDate, Long companyId) {
+    public List<Service> searchAvailables(AppUser appUser, Date bookingDate, Long companyId) {
         if (AppUserRole.EMPLOYEE.equals(appUser.getRole())) {
             if (bookingDate != null) {
                 return serviceRepository.findAllAvailableOrNot(bookingDate, appUser.getCompany().getId());

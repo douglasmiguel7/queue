@@ -4,12 +4,12 @@ import com.github.douglasmiguel7.queue.domain.AppUser;
 import com.github.douglasmiguel7.queue.repository.AppUserRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.security.Principal;
 import java.util.Optional;
 
-@Service
+@Component
 public class AppUserSearch {
 
     private final AppUserRepository appUserRepository;
