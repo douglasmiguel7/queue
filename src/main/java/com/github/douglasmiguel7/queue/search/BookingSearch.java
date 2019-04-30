@@ -28,11 +28,11 @@ public class BookingSearch {
 
         Optional<Booking> optionalBooking = Optional.empty();
 
-        if (appUser.getRole().equals(AppUserRole.EMPLOYEE)) {
+        if (AppUserRole.EMPLOYEE.equals(appUser.getRole())) {
             optionalBooking = bookingRepository.findByIdAndService_Company(id, appUser.getCompany());
-        } else if (appUser.getRole().equals(AppUserRole.CUSTOMER)) {
+        } else if (AppUserRole.CUSTOMER.equals(appUser.getRole())) {
             optionalBooking = bookingRepository.findByIdAndAppUser(id, appUser);
-        } else if (appUser.getRole().equals(AppUserRole.ADMIN)) {
+        } else if (AppUserRole.ADMIN.equals(appUser.getRole())) {
             optionalBooking = bookingRepository.findById(id);
         }
 
@@ -48,9 +48,9 @@ public class BookingSearch {
             return Collections.emptyList();
         }
 
-        if (appUser.getRole().equals(AppUserRole.CUSTOMER)) {
+        if (AppUserRole.CUSTOMER.equals(appUser.getRole())) {
             return bookingRepository.findAllByAppUser(appUser);
-        } else if (appUser.getRole().equals(AppUserRole.EMPLOYEE)) {
+        } else if (AppUserRole.EMPLOYEE.equals(appUser.getRole())) {
             return bookingRepository.findAllByService_Company(appUser.getCompany());
         } else {
             return bookingRepository.findAll();
