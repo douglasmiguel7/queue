@@ -9,7 +9,7 @@ public class Formatters {
 
     private static final SimpleDateFormat DATE = new SimpleDateFormat("dd/MM/yyyy");
 
-    private static final SimpleDateFormat TIMESTAMP = new SimpleDateFormat("dd/MM/yyyy");
+    private static final SimpleDateFormat TIMESTAMP = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
     private Formatters() {
 
@@ -27,4 +27,12 @@ public class Formatters {
         return date != null ? TIMESTAMP.format(date) : null;
     }
 
+    public static Date fromTimestamp(String timestamp) {
+        try {
+            return TIMESTAMP.parse(timestamp);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

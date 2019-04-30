@@ -1,6 +1,7 @@
 package com.github.douglasmiguel7.queue.input;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.github.douglasmiguel7.queue.serializer.TimestampDeserializer;
 import com.github.douglasmiguel7.queue.validator.ValidateBooking;
 
 import java.util.Date;
@@ -10,7 +11,7 @@ public class BookingInput {
 
     private Long serviceId;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
+    @JsonDeserialize(using = TimestampDeserializer.class)
     private Date date;
 
     public Long getServiceId() {
