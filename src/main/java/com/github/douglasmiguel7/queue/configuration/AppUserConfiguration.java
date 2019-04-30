@@ -2,6 +2,7 @@ package com.github.douglasmiguel7.queue.configuration;
 
 import com.github.douglasmiguel7.queue.domain.AppUser;
 import com.github.douglasmiguel7.queue.domain.Company;
+import com.github.douglasmiguel7.queue.hardcode.AppUserRole;
 import com.github.douglasmiguel7.queue.repository.AppUserRepository;
 import com.github.douglasmiguel7.queue.repository.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,8 @@ public class AppUserConfiguration {
     public boolean setupAppUsers() {
         createAdmin();
         createCustomer();
-        createEmployee();
+        createEmployeeOutback();
+        createEmployeeApplebees();
 
         return true;
     }
@@ -42,6 +44,7 @@ public class AppUserConfiguration {
         appUser.setNickname("Administrator");
         appUser.setName("admin");
         appUser.setPassword(bCryptPasswordEncoder.encode("admin"));
+        appUser.setRole(AppUserRole.ADMIN);
 
         appUserRepository.save(appUser);
     }
@@ -51,23 +54,45 @@ public class AppUserConfiguration {
         appUser.setNickname("Custumer");
         appUser.setName("customer");
         appUser.setPassword(bCryptPasswordEncoder.encode("customer"));
+        appUser.setRole(AppUserRole.CUSTOMER);
 
         appUserRepository.save(appUser);
     }
 
-    private void createEmployee() {
+    private void createEmployeeOutback() {
         Company company = new Company();
         company.setName("Outback");
 
         company = companyRepository.findOne(Example.of(company)).get();
 
         AppUser appUser = new AppUser();
-        appUser.setNickname("Employee");
-        appUser.setName("employee");
-        appUser.setPassword(bCryptPasswordEncoder.encode("employee"));
+        appUser.setNickname("Employee Applebees");
+        appUser.setName("emp1");
+        appUser.setPassword(bCryptPasswordEncoder.encode("emp1"));
         appUser.setCompany(company);
+        appUser.setRole(AppUserRole.EMPLOYEE);
 
         appUserRepository.save(appUser);
+    }
+
+    private void createEmployeeApplebees() {
+        Company company = new Company();
+        company.setName("Applebees");
+
+        company = companyRepository.findOne(Example.of(company)).get();
+
+        AppUser appUser = new AppUser();
+        appUser.setNickname("Employee Applebees");
+        appUser.setName("emp2");
+        appUser.setPassword(bCryptPasswordEncoder.encode("emp2"));
+        appUser.setCompany(company);
+        appUser.setRole(AppUserRole.EMPLOYEE);
+
+        appUserRepository.save(appUser);
+    }
+
+    private Company getCompanyByName(String name) {
+        return companyRepository.findOne(Example.of(new Company(name))).get();
     }
 
 }

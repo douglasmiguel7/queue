@@ -42,6 +42,17 @@ public class Booking implements Domain {
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
+    @Column(name = "CANCEL_DATE")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date cancelDate;
+
+    @Column(name = "REASON_CANCEL", columnDefinition = "text")
+    private String reasonCancel;
+
+    @ManyToOne
+    @JoinColumn(name = "CANCELATION_APP_USER_ID", referencedColumnName = "ID", foreignKey = @ForeignKey(name = "BOOKING_CANCELATION_APP_USER_FK"))
+    private AppUser cancelationAppUser;
+
     @Override
     public Long getId() {
         return id;
@@ -81,5 +92,41 @@ public class Booking implements Domain {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Date getCancelDate() {
+        return cancelDate;
+    }
+
+    public void setCancelDate(Date cancelDate) {
+        this.cancelDate = cancelDate;
+    }
+
+    public String getReasonCancel() {
+        return reasonCancel;
+    }
+
+    public void setReasonCancel(String reasonCancel) {
+        this.reasonCancel = reasonCancel;
+    }
+
+    public AppUser getCancelationAppUser() {
+        return cancelationAppUser;
+    }
+
+    public void setCancelationAppUser(AppUser cancelationAppUser) {
+        this.cancelationAppUser = cancelationAppUser;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Booking{");
+        sb.append("id=").append(id);
+        sb.append(", createdAt=").append(createdAt);
+        sb.append(", date=").append(date);
+        sb.append(", cancelDate=").append(cancelDate);
+        sb.append(", reasonCancel='").append(reasonCancel).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }

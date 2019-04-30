@@ -2,7 +2,7 @@ package com.github.douglasmiguel7.queue.service;
 
 import com.github.douglasmiguel7.queue.domain.AppUser;
 import com.github.douglasmiguel7.queue.repository.AppUserRepository;
-import org.apache.commons.lang3.StringUtils;
+import com.github.douglasmiguel7.queue.search.AppUserSearch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,26 +18,19 @@ import java.util.List;
 @Service
 public class AuthService implements UserDetailsService {
 
-    private final AppUserRepository appUserRepository;
+    private final AppUserSearch appUserSearch;
 
     @Autowired
-    public AuthService(AppUserRepository appUserRepository) {
-        this.appUserRepository = appUserRepository;
+    public AuthService(AppUserRepository appUserRepository, AppUserSearch appUserSearch) {
+        this.appUserSearch = appUserSearch;
     }
 
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-        AppUser appUser = appUserRepository.findOneByName(name).orElseThrow(() -> new UsernameNotFoundException(name));
+        AppUser appUser = appUserSearch.searchByName(name).orElseThrow(() -> new UsernameNotFoundException(name));
 
         List<GrantedAuthority> authorities = new ArrayList<>();
-
-        if (appUser.getCompany() != null) {
-            authorities.add(new SimpleGrantedAuthority("ROLE_EMPLOYEE"));
-        } else if (StringUtils.equalsIgnoreCase(appUser.getName(), "admin")) {
-            authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-        } else {
-            authorities.add(new SimpleGrantedAuthority("ROLE_CUSTOMER"));
-        }
+        authorities.add(new SimpleGrantedAuthority(appUser.getRole().getName()));
 
         User user = new User(appUser.getName(), appUser.getPassword(), authorities);
 

@@ -10,6 +10,10 @@ public class BookingOutput {
 
     private Long userId;
 
+    private String date;
+
+    private String cancelDate;
+
     public Long getId() {
         return id;
     }
@@ -42,6 +46,22 @@ public class BookingOutput {
         this.userId = userId;
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getCancelDate() {
+        return cancelDate;
+    }
+
+    public void setCancelDate(String cancelDate) {
+        this.cancelDate = cancelDate;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("BookingOutput{");
@@ -49,6 +69,8 @@ public class BookingOutput {
         sb.append(", createdAt='").append(createdAt).append('\'');
         sb.append(", serviceId=").append(serviceId);
         sb.append(", userId=").append(userId);
+        sb.append(", date='").append(date).append('\'');
+        sb.append(", cancelDate='").append(cancelDate).append('\'');
         sb.append('}');
         return sb.toString();
     }

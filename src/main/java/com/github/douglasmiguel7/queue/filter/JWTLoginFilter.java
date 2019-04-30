@@ -24,7 +24,6 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
         setAuthenticationManager(authManager);
     }
 
-
     @Override
     public Authentication attemptAuthentication(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws AuthenticationException, IOException, ServletException {
         SingInInput creds = new ObjectMapper().readValue(httpServletRequest.getInputStream(), SingInInput.class);
