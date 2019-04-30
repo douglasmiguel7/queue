@@ -34,6 +34,8 @@ public class BookingSearch {
             optionalBooking = bookingRepository.findByIdAndAppUser(id, appUser);
         } else if (AppUserRole.ADMIN.equals(appUser.getRole())) {
             optionalBooking = bookingRepository.findById(id);
+        } else {
+            return null;
         }
 
         if (!optionalBooking.isPresent()) {
@@ -52,8 +54,10 @@ public class BookingSearch {
             return bookingRepository.findAllByAppUser(appUser);
         } else if (AppUserRole.EMPLOYEE.equals(appUser.getRole())) {
             return bookingRepository.findAllByService_Company(appUser.getCompany());
-        } else {
+        } else if (AppUserRole.ADMIN.equals(appUser.getRole())) {
             return bookingRepository.findAll();
+        } else {
+            return Collections.emptyList();
         }
     }
 }

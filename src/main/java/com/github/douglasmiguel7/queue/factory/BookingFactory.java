@@ -9,8 +9,6 @@ import com.github.douglasmiguel7.queue.repository.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.security.Principal;
-
 @Component
 public class BookingFactory {
 
@@ -27,9 +25,7 @@ public class BookingFactory {
         this.bookingRepository = bookingRepository;
     }
 
-    public Booking fabricate(Principal principal, BookingInput bookingInput) {
-        AppUser appUser = appUserRepository.findOneByName(principal.getName()).get();
-
+    public Booking fabricate(AppUser appUser, BookingInput bookingInput) {
         Booking booking = bookingMapper.toBooking(bookingInput);
         booking.setAppUser(appUser);
 

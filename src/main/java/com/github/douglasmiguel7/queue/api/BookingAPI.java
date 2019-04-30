@@ -51,7 +51,9 @@ public class BookingAPI extends AbstractBaseV1API {
 
     @PostMapping("/bookings")
     public ResponseEntity createBooking(@AuthenticationPrincipal Principal principal, @RequestBody @Valid BookingInput bookingInput) {
-        Booking booking = bookingFactory.fabricate(principal, bookingInput);
+        AppUser appUser = appUserSearch.searchByPrincipal(principal);
+
+        Booking booking = bookingFactory.fabricate(appUser, bookingInput);
 
         BookingOutput bookingOutput = bookingMapper.toOutput(booking);
 
