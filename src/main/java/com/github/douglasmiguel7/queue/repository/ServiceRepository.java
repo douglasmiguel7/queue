@@ -16,4 +16,7 @@ public interface ServiceRepository extends JpaRepository<Service, Long> {
 
     @Query(HibernateQueryLanguage.SERVICES_AVAILABLE_BY_COMPANY)
     List<Service> findAvailables(@Param("bookingDate") Date bookingDate, @Param("companyId") Long companyId);
+
+    @Query(HibernateQueryLanguage.IS_SERVICE_AVAILABLE_BY_ID_AND_BOOKING_DATE)
+    boolean isAvailableByIdAndDate(@Param("serviceId") Long serviceId, @Param("bookingDate") Date bookingDate);
 }

@@ -1,17 +1,16 @@
 package com.github.douglasmiguel7.queue.input;
 
-import org.springframework.format.annotation.DateTimeFormat;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.github.douglasmiguel7.queue.validator.ValidateBooking;
 
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+@ValidateBooking
 public class BookingInput {
 
-    @NotNull
     private Long serviceId;
 
-    @NotNull
-    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
     private Date date;
 
     public Long getServiceId() {

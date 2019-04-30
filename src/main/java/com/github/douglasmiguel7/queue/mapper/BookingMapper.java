@@ -1,6 +1,7 @@
 package com.github.douglasmiguel7.queue.mapper;
 
 import com.github.douglasmiguel7.queue.domain.Booking;
+import com.github.douglasmiguel7.queue.input.BookingInput;
 import com.github.douglasmiguel7.queue.mapper.qualifier.Conversions;
 import com.github.douglasmiguel7.queue.mapper.qualifier.Convertion;
 import com.github.douglasmiguel7.queue.mapper.qualifier.ToLong;
@@ -11,7 +12,7 @@ import org.mapstruct.Mapping;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = {Conversions.class})
+@Mapper(componentModel = "spring", uses = {Conversions.class, ServiceMapper.class})
 public interface BookingMapper {
 
     @Mapping(target = "createdAt", source = "createdAt", qualifiedBy = {Convertion.class, ToTimestamp.class})
@@ -21,4 +22,6 @@ public interface BookingMapper {
 
     List<BookingOutput> toOutputs(List<Booking> bookings);
 
+    @Mapping(target = "service", source = "serviceId")
+    Booking toBooking(BookingInput bookingInput);
 }

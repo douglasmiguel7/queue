@@ -20,4 +20,6 @@ public interface ServiceMapper {
 
     List<ServiceOutput> toOutputs(List<Service> services);
 
+    Service toService(Long id);
+
 }

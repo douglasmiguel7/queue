@@ -3,6 +3,7 @@ package com.github.douglasmiguel7.queue.domain;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
@@ -25,11 +26,11 @@ public class Booking implements Domain {
     @Column(name = "ID")
     private Long id;
 
-    @Column(name = "CREATED_AT")
+    @Column(name = "CREATED_AT", nullable = false, columnDefinition = "timestamp without time zone default now()")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
+    private Date createdAt = new Date();
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.MERGE)
     @JoinColumn(name = "SERVICE_ID", referencedColumnName = "ID", nullable = false, foreignKey = @ForeignKey(name = "BOOKING_SERVICE_FK"))
     private Service service;
 
