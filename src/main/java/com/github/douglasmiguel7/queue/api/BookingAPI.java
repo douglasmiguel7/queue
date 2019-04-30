@@ -83,11 +83,9 @@ public class BookingAPI extends AbstractBaseV1API {
             return ResponseEntity.badRequest().body(errorOutput);
         }
 
-        bookingService.cancel(principal, booking, bookingCancelationInput);
+        bookingService.cancel(appUser, booking, bookingCancelationInput);
 
-        BookingOutput bookingOutput = bookingMapper.toOutput(booking);
-
-        return ResponseEntity.ok(bookingOutput);
+        return ResponseEntity.ok().build();
     }
 
 }

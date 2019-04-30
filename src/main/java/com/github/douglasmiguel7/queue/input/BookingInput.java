@@ -1,7 +1,7 @@
 package com.github.douglasmiguel7.queue.input;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.github.douglasmiguel7.queue.serializer.TimestampDeserializer;
+import com.github.douglasmiguel7.queue.deserializer.TimestampDeserializer;
 import com.github.douglasmiguel7.queue.validator.ValidateBooking;
 
 import java.util.Date;

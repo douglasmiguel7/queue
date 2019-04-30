@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 public interface ServiceRepository extends JpaRepository<Service, Long> {
 
@@ -29,4 +30,5 @@ public interface ServiceRepository extends JpaRepository<Service, Long> {
     @Query(HibernateQueryLanguage.IS_SERVICE_AVAILABLE_BY_ID_AND_BOOKING_DATE)
     boolean isAvailableByIdAndDate(@Param("serviceId") Long serviceId, @Param("bookingDate") Date bookingDate);
 
+    Optional<Service> findByIdAndCompany(Long id, Company company);
 }

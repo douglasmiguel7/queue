@@ -9,8 +9,6 @@ import com.github.douglasmiguel7.queue.repository.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.security.Principal;
-
 @Service
 public class BookingService {
 
@@ -27,9 +25,7 @@ public class BookingService {
         this.bookingRepository = bookingRepository;
     }
 
-    public void cancel(Principal principal, Booking booking, BookingCancelationInput bookingCancelationInput) {
-        AppUser appUser = appUserRepository.findOneByName(principal.getName()).get();
-
+    public void cancel(AppUser appUser, Booking booking, BookingCancelationInput bookingCancelationInput) {
         bookingMapper.update(booking, bookingCancelationInput, appUser);
 
         bookingRepository.save(booking);

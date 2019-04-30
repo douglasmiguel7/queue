@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class ServiceSearch {
@@ -49,4 +50,23 @@ public class ServiceSearch {
         }
     }
 
+    public Service searchByIdAndAppUser(Long id, AppUser appUser) {
+        if (id == null || Long.valueOf(0).equals(id)) {
+            return null;
+        }
+
+        Optional<Service> optionalService = Optional.empty();
+
+        if (AppUserRole.EMPLOYEE.equals(appUser.getRole())) {
+            optionalService = serviceRepository.findByIdAndCompany(id, appUser.getCompany());
+        } else {
+            return null;
+        }
+
+        if (!optionalService.isPresent()) {
+            return null;
+        }
+
+        return optionalService.get();
+    }
 }
