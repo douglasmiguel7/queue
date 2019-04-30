@@ -14,7 +14,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "COMPANY")
-public class Company {
+public class Company implements Domain {
 
     @Id
     @GenericGenerator(name = "companySequenceGenerator", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {@Parameter(name = "sequence_name", value = "COMPANY_SEQUENCE")})
@@ -41,6 +41,7 @@ public class Company {
         this.name = name;
     }
 
+    @Override
     public Long getId() {
         return id;
     }

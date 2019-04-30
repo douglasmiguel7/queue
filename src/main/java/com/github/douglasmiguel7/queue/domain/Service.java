@@ -18,7 +18,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "SERVICE")
-public class Service {
+public class Service implements Domain {
 
     @Id
     @GenericGenerator(name = "serviceSequenceGenerator", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {@Parameter(name = "sequence_name", value = "SERVICE_SEQUENCE")})
@@ -49,6 +49,7 @@ public class Service {
     @Column(name = "ACTIVE", nullable = false, columnDefinition = "boolean default true")
     private Boolean active = Boolean.TRUE;
 
+    @Override
     public Long getId() {
         return id;
     }

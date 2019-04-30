@@ -18,6 +18,8 @@ public class ServiceOutput {
 
     private BigDecimal price;
 
+    private Boolean active;
+
     public Long getId() {
         return id;
     }
@@ -72,5 +74,13 @@ public class ServiceOutput {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }

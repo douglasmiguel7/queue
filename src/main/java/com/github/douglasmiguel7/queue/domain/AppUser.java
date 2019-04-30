@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "APP_USER")
-public class AppUser {
+public class AppUser implements Domain {
 
     @Id
     @GenericGenerator(name = "appUserSequenceGenerator", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {@Parameter(name = "sequence_name", value = "APP_USER_SEQUENCE")})
@@ -35,6 +35,7 @@ public class AppUser {
     @JoinColumn(name = "COMPANY_ID", referencedColumnName = "ID", foreignKey = @ForeignKey(name = "APP_USER_COMPANY_FK"))
     private Company company;
 
+    @Override
     public Long getId() {
         return id;
     }

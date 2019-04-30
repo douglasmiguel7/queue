@@ -17,7 +17,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "BOOKING")
-public class Booking {
+public class Booking implements Domain {
 
     @Id
     @GenericGenerator(name = "bookingSequenceGenerator", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {@Parameter(name = "sequence_name", value = "BOOKING_SEQUENCE")})
@@ -37,6 +37,7 @@ public class Booking {
     @JoinColumn(name = "APP_USER_ID", referencedColumnName = "ID", nullable = false, foreignKey = @ForeignKey(name = "BOOKING_APP_USER_FK"))
     private AppUser appUser;
 
+    @Override
     public Long getId() {
         return id;
     }
