@@ -8,11 +8,13 @@ import com.github.douglasmiguel7.queue.utils.Times;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.data.domain.Example;
 
 import java.math.BigDecimal;
 
 @Configuration
+@DependsOn("setupComapnies")
 public class ServiceConfiguration {
 
     private final CompanyRepository companyRepository;
@@ -27,25 +29,47 @@ public class ServiceConfiguration {
 
     @Bean
     public boolean setupServices() {
-        Company company = new Company();
-        company.setName("Outback");
-
-        company = companyRepository.findOne(Example.of(company)).get();
-
-        createLunchTimeService(company);
+        createServicesApplebees();
+        createServicesOutback();
 
         return true;
     }
 
-    private void createLunchTimeService(Company company) {
-        Service service = new Service();
-        service.setCompany(company);
-        service.setName("Lunch Time!");
-        service.setDescription("Your lunch is cheaper here =)");
-        service.setPrice(BigDecimal.TEN);
-        service.setEndAt(Times.of(14));
+    private void createServicesOutback() {
+        Company outback = getCompanyByName("Outback");
 
-        serviceRepository.save(service);
+        Service caster = new Service();
+        caster.setCompany(outback);
+        caster.setName("Outback Caster");
+        caster.setDescription("Pizza caster <3");
+        caster.setPrice(new BigDecimal("45"));
+        caster.setEndAt(Times.of(19));
+
+        serviceRepository.save(caster);
+    }
+
+    private void createServicesApplebees() {
+        Company applebees = getCompanyByName("Applebees");
+
+        Service lunch = new Service();
+        lunch.setCompany(applebees);
+        lunch.setName("Applebees Lunch");
+        lunch.setDescription("Your lunch is cheaper here =)");
+        lunch.setPrice(BigDecimal.TEN);
+        lunch.setEndAt(Times.of(14));
+
+        Service executiveLunch = new Service();
+        executiveLunch.setCompany(applebees);
+        executiveLunch.setName("Applebees Executive");
+        executiveLunch.setPrice(new BigDecimal("55"));
+        executiveLunch.setEndless(true);
+
+        serviceRepository.save(lunch);
+        serviceRepository.save(executiveLunch);
+    }
+
+    private Company getCompanyByName(String name) {
+        return companyRepository.findOne(Example.of(new Company(name))).get();
     }
 
 }

@@ -9,7 +9,7 @@ import java.util.Date;
 public interface DateMapper {
 
     default String asString(Date date) {
-        return new SimpleDateFormat("HH:mm").format(date);
+        return date != null ? new SimpleDateFormat("HH:mm").format(date) : null;
     }
 
 }

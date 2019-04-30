@@ -21,8 +21,7 @@ public class ServiceSearch {
         if (companyId == null) {
             return serviceRepository.findAvailables(bookingDate);
         } else {
-//            serviceRepository.findAvailables(bookingDate, companyId);
-            return null;
+            return serviceRepository.findAvailables(bookingDate, companyId);
         }
     }
 

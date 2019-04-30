@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 public interface CompanyMapper {
 
     default Long asLong(Company company) {
-        return company.getId();
+        return company != null ? company.getId() : null;
     }
 
 }

@@ -19,14 +19,28 @@ public class CompanyConfiguration {
 
     @Bean
     public boolean setupComapnies() {
+        createOutback();
+        createApplebees();
+
+        return true;
+    }
+
+    private void createApplebees() {
+        Company company = new Company();
+        company.setName("Applebees");
+        company.setOpenAt(Times.of(11));
+        company.setClosesAt(Times.of(18));
+
+        companyRepository.save(company);
+    }
+
+    private void createOutback() {
         Company company = new Company();
         company.setName("Outback");
-        company.setOpenAt(Times.of(13));
+        company.setOpenAt(Times.of(14));
         company.setClosesAt(Times.of(21));
 
         companyRepository.save(company);
-
-        return true;
     }
 
 }
