@@ -71,7 +71,9 @@ public class BookingAPI extends AbstractBaseV1API {
 
     @DeleteMapping(value = "/bookings/{id}")
     public ResponseEntity cancelBooking(@AuthenticationPrincipal Principal principal, @PathVariable Long id, @RequestBody @Valid BookingCancelationInput bookingCancelationInput) {
-        Booking booking = bookingSearch.searchById(id);
+        AppUser appUser = appUserSearch.searchByPrincipal(principal);
+
+        Booking booking = bookingSearch.searchByIdAndAppUser(id, appUser);
 
         if (booking == null) {
             ErrorOutput errorOutput = ErrorFactory.fabricate("invalid id");

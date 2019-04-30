@@ -21,12 +21,20 @@ public class BookingSearch {
         this.bookingRepository = bookingRepository;
     }
 
-    public Booking searchById(Long id) {
+    public Booking searchByIdAndAppUser(Long id, AppUser appUser) {
         if (id == null || Long.valueOf(0).equals(id)) {
             return null;
         }
 
-        Optional<Booking> optionalBooking = bookingRepository.findById(id);
+        Optional<Booking> optionalBooking = Optional.empty();
+
+        if (appUser.getRole().equals(AppUserRole.EMPLOYEE)) {
+            optionalBooking = bookingRepository.findByIdAndService_Company(id, appUser.getCompany());
+        } else if (appUser.getRole().equals(AppUserRole.CUSTOMER)) {
+            optionalBooking = bookingRepository.findByIdAndAppUser(id, appUser);
+        } else if (appUser.getRole().equals(AppUserRole.ADMIN)) {
+            optionalBooking = bookingRepository.findById(id);
+        }
 
         if (!optionalBooking.isPresent()) {
             return null;
