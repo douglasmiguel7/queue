@@ -35,4 +35,13 @@ public class Formatters {
             return null;
         }
     }
+
+    public static Date fromTime(String time) {
+        try {
+            return TIME.parse(time);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
