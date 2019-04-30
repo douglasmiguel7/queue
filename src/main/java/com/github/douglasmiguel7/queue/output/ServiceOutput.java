@@ -83,4 +83,19 @@ public class ServiceOutput {
     public void setActive(Boolean active) {
         this.active = active;
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("ServiceOutput{");
+        sb.append("id=").append(id);
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", description='").append(description).append('\'');
+        sb.append(", companyId=").append(companyId);
+        sb.append(", endless=").append(endless);
+        sb.append(", endAt='").append(endAt).append('\'');
+        sb.append(", price=").append(price);
+        sb.append(", active=").append(active);
+        sb.append('}');
+        return sb.toString();
+    }
 }

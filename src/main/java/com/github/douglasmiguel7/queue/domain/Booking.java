@@ -37,6 +37,10 @@ public class Booking implements Domain {
     @JoinColumn(name = "APP_USER_ID", referencedColumnName = "ID", nullable = false, foreignKey = @ForeignKey(name = "BOOKING_APP_USER_FK"))
     private AppUser appUser;
 
+    @Column(name = "DATE")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date date;
+
     @Override
     public Long getId() {
         return id;
@@ -68,5 +72,13 @@ public class Booking implements Domain {
 
     public void setAppUser(AppUser appUser) {
         this.appUser = appUser;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

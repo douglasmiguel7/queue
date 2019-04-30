@@ -2,7 +2,7 @@ package com.github.douglasmiguel7.queue.mapper;
 
 import com.github.douglasmiguel7.queue.domain.Service;
 import com.github.douglasmiguel7.queue.mapper.qualifier.Conversions;
-import com.github.douglasmiguel7.queue.mapper.qualifier.ObjectConvertion;
+import com.github.douglasmiguel7.queue.mapper.qualifier.Convertion;
 import com.github.douglasmiguel7.queue.mapper.qualifier.ToLong;
 import com.github.douglasmiguel7.queue.mapper.qualifier.ToTime;
 import com.github.douglasmiguel7.queue.output.ServiceOutput;
@@ -14,8 +14,8 @@ import java.util.List;
 @Mapper(componentModel = "spring", uses = {Conversions.class})
 public interface ServiceMapper {
 
-    @Mapping(target = "companyId", source = "company", qualifiedBy = {ObjectConvertion.class, ToLong.class})
-    @Mapping(target = "endAt", source = "endAt", qualifiedBy = {ObjectConvertion.class, ToTime.class})
+    @Mapping(target = "companyId", source = "company", qualifiedBy = {Convertion.class, ToLong.class})
+    @Mapping(target = "endAt", source = "endAt", qualifiedBy = {Convertion.class, ToTime.class})
     ServiceOutput toOutput(Service service);
 
     List<ServiceOutput> toOutputs(List<Service> services);
