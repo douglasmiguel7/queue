@@ -7,12 +7,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.util.Date;
 
-@Entity(name = "COMPANY")
-public class Company {
+@Entity
+@Table(name = "COMPANY")
+public class Company implements Domain {
 
     @Id
     @GenericGenerator(name = "companySequenceGenerator", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {@Parameter(name = "sequence_name", value = "COMPANY_SEQUENCE")})
@@ -31,6 +33,15 @@ public class Company {
     @Temporal(TemporalType.TIME)
     private Date closesAt;
 
+    public Company() {
+
+    }
+
+    public Company(String name) {
+        this.name = name;
+    }
+
+    @Override
     public Long getId() {
         return id;
     }

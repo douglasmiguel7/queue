@@ -10,13 +10,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.math.BigDecimal;
 import java.util.Date;
 
-@Entity(name = "SERVICE")
-public class Service {
+@Entity
+@Table(name = "SERVICE")
+public class Service implements Domain {
 
     @Id
     @GenericGenerator(name = "serviceSequenceGenerator", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {@Parameter(name = "sequence_name", value = "SERVICE_SEQUENCE")})
@@ -34,16 +36,20 @@ public class Service {
     @JoinColumn(name = "COMPANY_ID", referencedColumnName = "ID", foreignKey = @ForeignKey(name = "SERVICE_COMPANY_FK"))
     private Company company;
 
-    @Column(name = "ENDLESS", columnDefinition = "boolean default true")
-    private Boolean endless = Boolean.TRUE;
+    @Column(name = "ENDLESS", nullable = false, columnDefinition = "boolean default false")
+    private Boolean endless = Boolean.FALSE;
 
     @Column(name = "END_AT")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.TIME)
     private Date endAt;
 
     @Column(name = "PRICE")
     private BigDecimal price;
 
+    @Column(name = "ACTIVE", nullable = false, columnDefinition = "boolean default true")
+    private Boolean active = Boolean.TRUE;
+
+    @Override
     public Long getId() {
         return id;
     }
@@ -98,5 +104,13 @@ public class Service {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }

@@ -1,18 +1,23 @@
 package com.github.douglasmiguel7.queue.domain;
 
+import com.github.douglasmiguel7.queue.hardcode.AppUserRole;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-@Entity(name = "APP_USER")
-public class AppUser {
+@Entity
+@Table(name = "APP_USER")
+public class AppUser implements Domain {
 
     @Id
     @GenericGenerator(name = "appUserSequenceGenerator", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {@Parameter(name = "sequence_name", value = "APP_USER_SEQUENCE")})
@@ -29,10 +34,15 @@ public class AppUser {
     @Column(name = "PASSWORD", nullable = false)
     private String password;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "COMPANY_ID", referencedColumnName = "ID", nullable = false, foreignKey = @ForeignKey(name = "APP_USER_COMPANY_FK"))
+    @ManyToOne
+    @JoinColumn(name = "COMPANY_ID", referencedColumnName = "ID", foreignKey = @ForeignKey(name = "APP_USER_COMPANY_FK"))
     private Company company;
 
+    @Column(name = "ROLE", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private AppUserRole role;
+
+    @Override
     public Long getId() {
         return id;
     }
@@ -71,5 +81,13 @@ public class AppUser {
 
     public void setCompany(Company company) {
         this.company = company;
+    }
+
+    public AppUserRole getRole() {
+        return role;
+    }
+
+    public void setRole(AppUserRole role) {
+        this.role = role;
     }
 }
